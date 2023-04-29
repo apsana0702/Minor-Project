@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+    <link rel="stylesheet" href="Scanner.css">
+     
+    <style>
+        * {
+  box-sizing: border-box;
+}
+
+/* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+body div{
+    background-repeat: no-repeat;
+      
+}
+
+/* Header/logo Title */
+.header {
+  background-image: url("https://www.pngitem.com/pimgs/m/296-2968059_most-popular-brands-logo-png-images-starbucks-new.png");
+  background-size: contain;
+  padding: 80px;
+  text-align: center;
+  font-size: medium;
+  background-color: darkturquoise;
+  color: rgb(25, 22, 22);
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 40px;
+}
+
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+.navbar {
+  overflow: auto;
+  background-color: #333;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 2px 2px;
+  text-decoration: none;
+  margin: 5px;
+}
+
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Active/current link */
+.navbar a.active {
+  background-color: #666;
+  color: white;
+  font-weight: 100;
+}
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+ 
+#Upload{
+    height: 300px;
+    width: 300px;
+    border-radius: 6px;
+    border: 1px dashed #5a18d3;
+
+}
+#Upload:hover{
+    color: #dedede;
+    border: 1px hashed #555;
+}
+.sn{
+    margin-top: 30px;
+}
+
+   </style>
+  </head>
+  <body>
+    <div class="header">
+        <h1><span>Logo Detection</span></h1>
+        <p> <b>Our Website</b><br> <em> Trust and Quality matters</em></p>
+    </div>
+       <nav> 
+        <div class="navbar">
+          <form action=""> 
+      
+          <a href="oose2.html">Home</a>  
+           <a href="Scanner.html" class="active"><b>  Scanner </b></a>  
+             <a href="about.html">About us</a>  
+            <a href="logos.html" class="right">Logos</a>  
+        
+        </form>
+          <nav  class="navbar bg-body-tertiary"> 
+          <div class="container-fluid">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="search" aria-label="Search" value="">
+                    <button class="btn btn-outline-success" type="submit" onclick="">Search</button>
+                </form>
+            </div>
+        </div>
+        </nav> 
+             <!--<div class="sn"> 
+             <center> <label for="file" id="Upload">Upload Image</label> </center>
+             <center> <input type="file" id="file" name="file"> </center>
+             </div>-->
+             <div class="scan"> 
+              <div class="container">
+                <input type="file" id="file" accept="image/*" hidden>
+                <div class="img-area" data-img="">
+                  <i class='bx bxs-cloud-upload icon'></i>
+                  <h3>Upload Image</h3>
+                  <p>Image size must be less than <span>2MB</span></p>
+                </div>
+                <button class="select-image">Select Image</button>
+                <a href="popup.html"><button type="button" id="detect">Start Detecting</button></a>
+              </div>
+            </div>
+            <!-- <py-script src="app.py"> -->
+                <!-- <h1>assalamualaikum</h1> -->
+            <!-- </py-script> -->
+            <style>
+              @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+              /* textarea{
+        resize: none;
+        height: 80px;
+        font-size: 15px;
+        padding: 8px 10px;
+        border: 1px solid #999;
+      }
+              form .row{
+        display: flex;
+        margin-bottom: 20px;
+        flex-direction: column;
+      }
+      form .row label{
+        font-size: 18px;
+        margin-bottom: 5px;
+      }
+      form .row:nth-child(2) label{
+        font-size: 17px;
+      }
+              form .row .outer{
+        height: 47px;
+        display: flex;
+        padding: 0 10px;
+        align-items: center;
+        border-radius: 5px;
+        justify-content: center;
+        border: 1px solid #999;
+      }
+              form .row select{
+        font-size: 14px;
+        background: none;
+      }
+      form .row select::-webkit-scrollbar{
+        width: 3px;
+      }
+      form .row select::-webkit-scrollbar-track{
+        background: #fff;
+      }
+      form .row select::-webkit-scrollbar-thumb{
+        background: #888;
+        border-radius: 8px;
+        border-right: 2px solid #ffffff;
+      }
+      form button{
+        height: 52px;
+        color: #fff;
+        font-size: 17px;
+        cursor: pointer;
+        margin-top: 10px;
+        background: #675AFE;
+        transition: 0.3s ease;
+      }
+              form button:hover{
+                     background: #4534fe;
+               }
+          </style> */
+          /* <!-- <h1 class="text-center">Object classifier</h1>
+          <form action="/" class="p-3 text-center" method="post" enctype="multipart/form-data">
+              <input class="form-control" type="file" name="imagefile">
+              <input type="submit" class="btn btn-primary mt-3" value="predict Image">
+          </form>
+          {% if prediction %}
+               <center> 
+              <textarea class="text-center">Image is a {{prediction}}</textarea>
+          </center>
+          {% endif %}
+        <form action="#"> 
+            <div class="row">
+              <label>Select Voice</label>
+              <div class="outer">
+                <select></select>
+              </div>
+            </div>
+            <button>Convert To Speech</button>
+          </form> -->
+<!--          
+        <script>
+          const textarea = document.querySelector("textarea"),
+      voiceList = document.querySelector("select"),
+      speechBtn = document.querySelector("button");
+      let synth = speechSynthesis,
+      isSpeaking = true;
+      voices();
+      function voices(){
+          for(let voice of synth.getVoices()){
+              let selected = voice.name === "Google US English" ? "selected" : "";
+              let option = `<option value="${voice.name}" ${selected}>${voice.name} (${voice.lang})</option>`;
+              voiceList.insertAdjacentHTML("beforeend", option);
+          }
+      }
+      synth.addEventListener("voiceschanged", voices);
+      function textToSpeech(text){
+          let utterance = new SpeechSynthesisUtterance(text);
+          for(let voice of synth.getVoices()){
+              if(voice.name === voiceList.value){
+                  utterance.voice = voice;
+              }
+          }
+          synth.speak(utterance);
+      }
+      speechBtn.addEventListener("click", e =>{
+          e.preventDefault();
+          if(textarea.value !== ""){
+              if(!synth.speaking){
+                  textToSpeech(textarea.value);
+              }
+              if(textarea.value.length > 80){
+                  setInterval(()=>{
+                      if(!synth.speaking && !isSpeaking){
+                          isSpeaking = true;
+                          speechBtn.innerText = "Convert To Speech";
+                      }else{
+                      }
+                  }, 500);
+                  if(isSpeaking){
+                      synth.resume();
+                      isSpeaking = false;
+                      speechBtn.innerText = "Pause Speech";
+                  }else{
+                      synth.pause();
+                      isSpeaking = true;
+                      speechBtn.innerText = "Resume Speech";
+                  }
+              }else{
+                  speechBtn.innerText = "Convert To Speech";
+              }
+          }
+      });
+        </script> -->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="Scanner.js"></script>
+    <script>
+      let query=document.querySelector('form-control me-2');
+      let SearchBtn=document.querySelector('btn btn-outline-success');
+      SearchBtn.eventListener('click',funName);
+      function funName(){
+        let url='https://www.google.com/search?q='+query.value;
+         window.open(url,'_self');
+      }
+      // SearchBtn.onclick=function(){
+      //   let url='https://www.google.com/search?q='+query.value;
+      //   window.open(url,'_self');
+      // }
+    </script> */
+     
+      
+
+    
+     
+  </body>
+</html>

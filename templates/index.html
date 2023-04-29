@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Object Detector</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+        * {
+  box-sizing: border-box;
+}
+        /* Style the body */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+        body div{
+    background-repeat: no-repeat;
+      
+}
+          .header {
+         background-image: url("https://axonator.com/wp-content/uploads/2021/01/Axonator-Object-Detection-Technology.svg"); 
+         background-size: contain;
+         /* background-repeat: no-repeat; */
+         padding: 80px;
+         text-align: center;
+         font-size: medium;
+         background-color: darkturquoise;
+         color: rgb(25, 22, 22);
+}
+
+/* Increase the font size of the heading */
+.header h1 {
+  font-size: 60px;
+}
+
+/* Sticky navbar - toggles between relative and fixed, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). The sticky value is not supported in IE or Edge 15 and earlier versions. However, for these versions the navbar will inherit default position */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  padding: 6px;
+}
+
+/* Style the navigation bar links */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+
+/* Right-aligned link */
+.navbar a.right {
+  float: right;
+}
+
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Active/current link */
+.navbar a.active {
+  background-color: #666;
+  color: white;
+}
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}
+.content{
+  margin-left: 20px;
+  margin-top:0px;
+  float: left;
+  font-size: large;
+  font-weight: 800;
+  line-height: 20px;
+}
+.classes{
+  display: flex;
+  flex-direction: row;
+  padding: 80px;
+  background-color: #ddd;
+}
+h2{
+  border: 3px;
+  background-color: aqua;
+  padding: 50px;
+  font-weight: 600;
+  font-size: 50px
+}
+#About{
+  background-color: #ddd;
+}
+#About image{
+  background-color: #ddd;
+}
+#Detector{
+  padding: 30px;
+  background-color: #ddd;
+}
+/* Footer */
+footer{
+  background: #111;
+  height: auto;
+  width: 100vw;
+  font-family: "Open Sans";
+  padding-top: 40px;
+  color: #fff;
+}
+.footer-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+.footer-content h3{
+  font-size: 1.8rem;
+  font-weight: 400;
+  text-transform: capitalize;
+  line-height: 3rem;
+}
+.socials{
+   list-style: none;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin: 1rem 0 3rem 0;
+}
+.socials li{
+  margin: 0 10px;
+}
+.socials a{
+  text-decoration: none;
+  color: #ffffff;
+}
+.socials a i{
+  font-size: 1.1rem;
+  transition: color .4s ease;
+}
+.socials a:hover i{
+  color: aqua;
+}
+.footer-bottom{
+  background: #151313;
+  width: 100vw;
+  padding: 20px 0;
+  text-align: center;
+}
+.footer-bottom p{
+  font-size: 14px;
+  word-spacing: 2px;
+  text-transform: capitalize;
+}
+.footer-bottom span{
+  text-transform: uppercase;
+  opacity: .4;
+  font-weight: 200;
+}
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+        textarea{
+  resize: none;
+  height: 80px;
+  font-size: 15px;
+  padding: 8px 10px;
+  border: 1px solid #999;
+}
+#input{
+  padding: 20px;
+}
+.p-3 text-center{
+  padding: 90px;
+}
+        form .row{
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: column;
+}
+.outer{
+  padding: 50px;
+  background-color: #a98383;
+  size: 60px;
+}
+select{
+  background-color: white;
+}
+form .row label{
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+form .row:nth-child(2) label{
+  font-size: 17px;
+}
+        form .row .outer{
+  height: 47px;
+  display: flex;
+  padding: 0 80px;
+  align-items: center;
+  border-radius: 5px;
+  justify-content: center;
+  border: 1px solid #999;
+}
+        form .row select{
+  font-size: 14px;
+  background: none;
+}
+form .row select::-webkit-scrollbar{
+  width: 3px;
+}
+form .row select::-webkit-scrollbar-track{
+  background: #fff;
+}
+form .row select::-webkit-scrollbar-thumb{
+  background: #888;
+  border-radius: 8px;
+  border-right: 2px solid #ffffff;
+}
+form button{
+  height: 52px;
+  color: #fff;
+  font-size: 17px;
+  cursor: pointer;
+  margin-top: 10px;
+  background: #675AFE;
+  transition: 0.3s ease;
+}
+        form button:hover{
+               background: #4534fe;
+         }
+    </style>
+     <div class="header">
+      <h1><span>Object Detection</span></h1>
+      <p>   <em>WE DETECT OBJECTS</em></p>
+    </div>
+     
+    <div class="navbar">
+      <a href="#Home" class="active">Home</a>
+      <a href="#Detector">Detector</a>
+      <a href="#About">About us</a>
+      <!-- <a href="logos.html" class="right">logos</a> -->
+    </div>
+    <section id="Home"> 
+    <div class="classes"> 
+      <div class="img"> <img src="https://d1m75rqqgidzqn.cloudfront.net/wp-data/2020/07/24011215/2-1.png"  width="460" height="345"></div>
+      <div class="content">
+    <p>  Many problems in computer vision were saturating on their accuracy before a decade. However, with the raise of deep learning techniques, the accuracy of these problems drastically improved. 
+      One of the major problems was that of image classification, which defined as predicting the class of the image is.
+        A slightly complicated problem is that of image localization, where the image contains a single object and the system should predict the class of the location of the object in the image(a bounding box around the object).
+        The more complicated problem (this project) of object detection involves both classification and localization. In this case, the input of the system will be image, and the output will be name of the object with prediction accuracy and voice corresponding to all the objects in the image, along with the class of object. An overview of all problems is depicted.  
+        The purpose of object detection is to locate and identify objects within an image or a video.
+      <ul>
+        <li>Autonomous driving</li>
+        <li>Surveillance and Security</li>
+        <li>Robotics</li>
+        <li>Medical Imaging</li>
+        <li>Retail and Marketing</li>
+      </ul>
+    </p>
+    </div>
+    </div>
+  </div>
+</section>
+<section id="About">
+  <center> <h2>About Us</h2> 
+  <p>We detecte the images</p> 
+  <p>Hi there! This is an object detector. <br>
+    Given an image, it will localize the objects and tell which class the model thinks they belong to.</p>
+  </center> 
+   <center> 
+  <img src="https://geertbaeke.files.wordpress.com/2019/01/imagerecog.jpeg?w=1024" alt="cats"></center>
+  <p>Object Detection is a rapidly evolving field with a lot of potential for future advancements. 
+    The development of more accurate, efficient, and versatile object detection algorithms will enable a wide range of applications in fields such as 
+    robotics, Autonomous vehicles, and computer vision.</p>
+</section>
+<section id="Detector"> 
+    <h2 class="text-center">Object Detector</h2>
+    <div class="input"> 
+    <form action="/" class="p-3 text-center" method="post" enctype="multipart/form-data">
+        <input class="form-control" type="file" name="imagefile" id="upload" onchange="getImagePreview(event)">
+        <div> 
+        <img  id="preview-image">
+      </div>
+        <input type="submit" class="btn btn-primary mt-3" value="predict Image">
+         
+    </form>
+  </div>
+  <!-- <div class="preview">
+
+
+  </div> -->
+    {% if prediction %}
+         <center> 
+        <textarea class="text-center">Image is a {{prediction}}</textarea>
+    </center>
+    {% endif %}
+  <form action="#"> 
+      <div class="row">
+        <label>Select Voice</label>
+        <div class="outer">
+          <select></select>
+        </div>
+      </div>
+      <button>Convert To Speech</button>
+    </form>
+  </section>
+  <section id="Footer">
+    <footer> 
+    <div class="footer-content">
+      <h3>Contact us for more details</h3>
+      <ul class="socials">
+        <li><a href="#"><i class="fa fa-facebook"></i> </a> </li>
+        <li><a href="#"><i class="fa fa-twitter"></i> </a> </li>
+        <li><a href="#"><i class="fa fa-google-plus"></i> </a> </li>
+        <li><a href="#"><i class="fa fa-youtube"></i> </a> </li>
+        <li><a href="#"><i class="fa fa-linkedin-square"></i> </a> </li>
+      </ul>
+    </div>
+    <div class="footer-bottom">
+      <p>Copy right &copy;2023 contact us designed by <span>Au</span> </p>
+    </div>
+    </footer>
+    
+  </section>
+   
+  <script>
+    var imageInput=document.getElementById("upload");
+    var previewImage=document.getElementById("preview-image");
+    imageInput.addEventListener("change",function(event){
+      if(event.target.files.length==0){
+        return;
+      }
+      var tempUrl=URL.createObjectURL(event.target.files[0]);
+      previewImage.setAttribute("src", tempUrl);
+      previewImage.width="200";
+    })
+    const textarea = document.querySelector("textarea"),
+voiceList = document.querySelector("select"),
+speechBtn = document.querySelector("button");
+let synth = speechSynthesis,
+isSpeaking = true;
+voices();
+function voices(){
+    for(let voice of synth.getVoices()){
+        let selected = voice.name === "Google US English" ? "selected" : "";
+        let option = `<option value="${voice.name}" ${selected}>${voice.name} (${voice.lang})</option>`;
+        voiceList.insertAdjacentHTML("beforeend", option);
+    }
+}
+synth.addEventListener("voiceschanged", voices);
+function textToSpeech(text){
+    let utterance = new SpeechSynthesisUtterance(text);
+    for(let voice of synth.getVoices()){
+        if(voice.name === voiceList.value){
+            utterance.voice = voice;
+        }
+    }
+    synth.speak(utterance);
+}
+speechBtn.addEventListener("click", e =>{
+    e.preventDefault();
+    if(textarea.value !== ""){
+        if(!synth.speaking){
+            textToSpeech(textarea.value);
+        }
+        if(textarea.value.length > 80){
+            setInterval(()=>{
+                if(!synth.speaking && !isSpeaking){
+                    isSpeaking = true;
+                    speechBtn.innerText = "Convert To Speech";
+                }else{
+                }
+            }, 500);
+            if(isSpeaking){
+                synth.resume();
+                isSpeaking = false;
+                speechBtn.innerText = "Pause Speech";
+            }else{
+                synth.pause();
+                isSpeaking = true;
+                speechBtn.innerText = "Resume Speech";
+            }
+        }else{
+            speechBtn.innerText = "Convert To Speech";
+        }
+    }
+});
+  </script>
+</body>
+</html>
